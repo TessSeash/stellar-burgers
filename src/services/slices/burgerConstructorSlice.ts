@@ -4,10 +4,10 @@ import { TConstructorIngredient, TIngredient } from '../../utils/types';
 export interface IBurgerConstructorState {
   // Интерфейс состояния слайса конструктора бургера
   burgerConstructor: {
-    bun: TConstructorIngredient | null; // Булка бургера
-    ingredients: TConstructorIngredient[]; // Ингредиенты бургера
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
   };
-  error: string | null; // Сообщение об ошибке
+  error: string | null;
 }
 
 const initialState: IBurgerConstructorState = {

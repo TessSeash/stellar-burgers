@@ -12,7 +12,6 @@ import {
   registerUserApi,
   updateUserApi
 } from '@api';
-import { get } from 'http';
 
 export const loginUserThunk = createAsyncThunk(
   // Авторизация пользователя
@@ -48,13 +47,13 @@ export const registerUserThunk = createAsyncThunk(
 
 export const getUserThunk = createAsyncThunk(
   // Получение данных пользователя
-  'users/getUser',
+  'user/getUser',
   async () => getUserApi()
 );
 
 export const updateUserThunk = createAsyncThunk(
   // Обновление данных пользователя
-  'users/updateUser',
+  'user/updateUser',
   async (data: Partial<TRegisterData>) => updateUserApi(data)
 );
 
@@ -110,16 +109,24 @@ export const userSlice = createSlice({
       .addCase(loginUserThunk.fulfilled, (state, action) => {
         state.userLoginRequest = false;
         state.user = action.payload;
+        state.authenticationState = true;
       })
       .addCase(loginUserThunk.rejected, (state, action) => {
         state.userLoginRequest = false;
         state.error = action.error.message as string;
       });
 
-    builder.addCase(logoutUserThunk.pending, (state) => {
-      state.userLoginRequest = true;
-      state.error = null;
-    });
+    builder
+      .addCase(logoutUserThunk.pending, (state) => {
+        state.userLoginRequest = true;
+        state.authenticationState = false;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.userLoginRequest = false;
+        state.authenticationState = false;
+        state.user = null;
+      });
 
     builder
       .addCase(getUserThunk.pending, (state) => {
@@ -162,6 +169,21 @@ export const userSlice = createSlice({
       })
       .addCase(getOrdersThunk.rejected, (state, action) => {
         state.ordersRequest = false;
+        state.error = action.error.message as string;
+      });
+
+    builder
+      .addCase(registerUserThunk.pending, (state) => {
+        state.userLoginRequest = true;
+        state.error = null;
+      })
+      .addCase(registerUserThunk.fulfilled, (state, action) => {
+        state.userLoginRequest = false;
+        state.user = action.payload;
+        state.authenticationState = true;
+      })
+      .addCase(registerUserThunk.rejected, (state, action) => {
+        state.userLoginRequest = false;
         state.error = action.error.message as string;
       });
   }
