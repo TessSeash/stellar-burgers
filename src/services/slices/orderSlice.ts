@@ -24,7 +24,7 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   selectors: {
-    orderSelector: (state: IOrderState) => state
+    orderSelector: (state) => state
   },
   reducers: {},
   extraReducers: (builder) => {

@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 // Интерфейс состояния слайса ингредиентов
 export interface IIngredientsState {
   isLoading: boolean; // состояние загрузки данных
-  ingredients: TIngredient[]; // Массив ингредиентов
+  ingredients: TIngredient[];
   error: string | null;
 }
 
@@ -16,9 +16,9 @@ const initialState: IIngredientsState = {
   error: null
 };
 
-// Асинхронный thunk для получения ингредиентов с сервера
+// получение ингредиентов с сервера
 export const getIngredientsThunk = createAsyncThunk(
-  'ingredients/getIngredients', // Имя экшена
+  'ingredients/getIngredients',
   getIngredientsApi // Функция для получения ингредиентов из API
 );
 
@@ -30,7 +30,7 @@ const ingredientsSlice = createSlice({
   selectors: {
     // Селектор для получения ингредиентов из состояния
     ingredientsSelector: (state: IIngredientsState) => state.ingredients,
-    // Селектор для получения флага загрузки
+    // Селектор для получения загрузки
     ingredientsIsLoadingSelector: (state: IIngredientsState) => state.isLoading
   },
   // Обработка асинхронных экшенов
