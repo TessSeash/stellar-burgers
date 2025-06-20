@@ -1,8 +1,7 @@
-import { FC, SyntheticEvent, useState, useEffect } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import {
-  clearErrors,
   errorSelector,
   registerUserThunk,
   authenticationStateSelector
@@ -22,10 +21,6 @@ export const Register: FC = () => {
     e.preventDefault();
     dispatch(registerUserThunk({ name: userName, email, password }));
   };
-
-  useEffect(() => {
-    dispatch(clearErrors());
-  }, [dispatch]);
 
   if (isAuthenticated) {
     return <Navigate to='/' />;

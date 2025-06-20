@@ -1,8 +1,7 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
 import {
-  clearErrors,
   errorSelector,
   authenticationStateSelector,
   loginUserThunk
@@ -15,10 +14,6 @@ export const Login: FC = () => {
   const isAuthenticated = useSelector(authenticationStateSelector);
   const error = useSelector(errorSelector);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(clearErrors());
-  }, [dispatch]);
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();

@@ -15,6 +15,7 @@ export const getOrderByNumberThunk = createAsyncThunk(
 
 export interface IFeedState {
   orders: TOrder[]; // Массив заказов
+  order: TOrder | null; // Заказ по номеру
   total: number; // Общее количество заказов
   totalToday: number; // Количество заказов, сделанных сегодня
   isLoading: boolean;
@@ -23,6 +24,7 @@ export interface IFeedState {
 
 const initialState: IFeedState = {
   orders: [],
+  order: null,
   total: 0,
   totalToday: 0,
   isLoading: false,
@@ -36,7 +38,7 @@ const feedSlice = createSlice({
   reducers: {},
   selectors: {
     getFeedSelector: (state: IFeedState) => state,
-    getOrdersSelector: (state: IFeedState) => state.orders
+    getOrderSelector: (state: IFeedState) => state.order
   },
   extraReducers: (builder) => {
     builder
@@ -71,11 +73,11 @@ const feedSlice = createSlice({
       .addCase(getOrderByNumberThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.orders = action.payload.orders;
+        state.order = action.payload.orders[0];
       });
   }
 });
 
-export const { getFeedSelector, getOrdersSelector } = feedSlice.selectors;
+export const { getFeedSelector, getOrderSelector } = feedSlice.selectors;
 
 export default feedSlice.reducer;

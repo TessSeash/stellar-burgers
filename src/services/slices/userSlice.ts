@@ -57,14 +57,11 @@ export const updateUserThunk = createAsyncThunk(
   async (data: Partial<TRegisterData>) => updateUserApi(data)
 );
 
-export const getOrdersThunk = createAsyncThunk(
-  // Получение заказов пользователя
-  'user/getOrders',
-  async () => {
-    const response = await getOrdersApi();
-    return response;
-  }
-);
+export const getOrdersThunk = createAsyncThunk('user/getOrders', async () => {
+  const response = await getOrdersApi();
+  console.log(response);
+  return response;
+});
 
 export interface IUserState {
   authenticationState: boolean; // Состояние аутентификации пользователя
@@ -140,7 +137,12 @@ export const userSlice = createSlice({
       })
       .addCase(getUserThunk.rejected, (state, action) => {
         state.userLoginRequest = false;
-        state.error = action.error.message as string;
+        state.user = null;
+        if (action.payload === null) {
+          state.error = null;
+        } else {
+          state.error = action.payload as string;
+        }
       });
 
     builder

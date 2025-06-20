@@ -84,24 +84,23 @@ const App = () => {
               <Profile />
             </ProtectedRoute>
           }
-        >
-          <Route
-            path='orders'
-            element={
-              <ProtectedRoute>
-                <ProfileOrders />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path='orders/:number'
-            element={
-              <ProtectedRoute>
-                <OrderInfo />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
+        />
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
       {background && (

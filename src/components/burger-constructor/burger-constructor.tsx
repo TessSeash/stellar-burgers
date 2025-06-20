@@ -8,7 +8,8 @@ import {
 } from '../../services/slices/burgerConstructorSlice';
 import {
   orderSelector,
-  orderBurgerThunk
+  orderBurgerThunk,
+  clearOrder
 } from '../../services/slices/orderSlice';
 
 import { authenticationStateSelector } from '../../services/slices/userSlice';
@@ -46,8 +47,9 @@ export const BurgerConstructor: FC = () => {
 
   // Закрытие модального окна заказа
   const closeOrderModal = () => {
-    navigate('/', { replace: true });
     dispatch(clearConstructor());
+    dispatch(clearOrder());
+    navigate('/', { replace: true });
   };
 
   // Подсчёт цены

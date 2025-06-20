@@ -26,7 +26,12 @@ const orderSlice = createSlice({
   selectors: {
     orderSelector: (state) => state
   },
-  reducers: {},
+  reducers: {
+    clearOrder: (state) => {
+      state.order = null;
+      state.isLoading = false;
+    }
+  },
   extraReducers: (builder) => {
     builder
       // Начало загрузки заказа
@@ -48,5 +53,6 @@ const orderSlice = createSlice({
 });
 
 export const { orderSelector } = orderSlice.selectors;
+export const { clearOrder } = orderSlice.actions;
 
 export default orderSlice.reducer;
