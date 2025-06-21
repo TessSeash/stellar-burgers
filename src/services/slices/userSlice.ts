@@ -59,7 +59,6 @@ export const updateUserThunk = createAsyncThunk(
 
 export const getOrdersThunk = createAsyncThunk('user/getOrders', async () => {
   const response = await getOrdersApi();
-  console.log(response);
   return response;
 });
 
