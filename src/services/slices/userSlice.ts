@@ -69,6 +69,7 @@ export interface IUserState {
   orders: TOrder[]; // Заказы пользователя
   ordersRequest: boolean; // Запрос на получение заказов пользователя
   error: string | null; // Сообщение об ошибке
+  userChecked: boolean; // прошла ли проверка на наличие пользователя
 }
 
 const initialState: IUserState = {
@@ -77,7 +78,8 @@ const initialState: IUserState = {
   user: null,
   orders: [],
   ordersRequest: false,
-  error: null
+  error: null,
+  userChecked: false
 };
 
 export const userSlice = createSlice({
@@ -89,7 +91,8 @@ export const userSlice = createSlice({
     userLoginRequestSelector: (state: IUserState) => state.userLoginRequest,
     userSelector: (state: IUserState) => state.user,
     ordersSelector: (state: IUserState) => state.orders,
-    errorSelector: (state: IUserState) => state.error
+    errorSelector: (state: IUserState) => state.error,
+    userCheckedSelector: (state: IUserState) => state.userChecked
   },
   reducers: {
     clearErrors: (state) => {
@@ -128,11 +131,13 @@ export const userSlice = createSlice({
       .addCase(getUserThunk.pending, (state) => {
         state.userLoginRequest = true;
         state.error = null;
+        state.userChecked = false;
       })
       .addCase(getUserThunk.fulfilled, (state, action) => {
         state.userLoginRequest = false;
         state.authenticationState = true;
         state.user = action.payload.user;
+        state.userChecked = true;
       })
       .addCase(getUserThunk.rejected, (state, action) => {
         state.userLoginRequest = false;
@@ -142,6 +147,7 @@ export const userSlice = createSlice({
         } else {
           state.error = action.payload as string;
         }
+        state.userChecked = true;
       });
 
     builder
@@ -197,7 +203,8 @@ export const {
   userLoginRequestSelector,
   userSelector,
   ordersSelector,
-  errorSelector
+  errorSelector,
+  userCheckedSelector
 } = userSlice.selectors;
 
 export default userSlice.reducer;
