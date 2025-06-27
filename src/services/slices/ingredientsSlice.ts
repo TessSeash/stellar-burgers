@@ -10,7 +10,7 @@ export interface IIngredientsState {
 }
 
 // Начальное состояние слайса
-const initialState: IIngredientsState = {
+export const initialState: IIngredientsState = {
   isLoading: false,
   ingredients: [],
   error: null
