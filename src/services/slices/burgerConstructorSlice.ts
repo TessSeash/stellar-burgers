@@ -10,7 +10,7 @@ export interface IBurgerConstructorState {
   error: string | null;
 }
 
-const initialState: IBurgerConstructorState = {
+export const initialState: IBurgerConstructorState = {
   // Начальное состояние слайса для конструктора бургера
   burgerConstructor: {
     bun: null,

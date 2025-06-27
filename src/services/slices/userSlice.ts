@@ -72,7 +72,7 @@ export interface IUserState {
   userChecked: boolean; // прошла ли проверка на наличие пользователя
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
   authenticationState: false,
   userLoginRequest: false,
   user: null,

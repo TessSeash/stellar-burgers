@@ -22,7 +22,7 @@ export interface IFeedState {
   error: string | null; // Сообщение об ошибке
 }
 
-const initialState: IFeedState = {
+export const initialState: IFeedState = {
   orders: [],
   order: null,
   total: 0,
